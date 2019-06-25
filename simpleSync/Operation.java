@@ -3,10 +3,9 @@ package simpleSync;
 import java.io.*;
 import java.nio.file.*;
 import java.nio.file.StandardCopyOption;
-import javafx.beans.property.SimpleStringProperty;
 
 /**A class that define an operation to be done
-*@version 20170102
+*@version 20190625
 */
 public class Operation
 {
@@ -17,10 +16,10 @@ public class Operation
         this.action = action;
         this.message = message;
         
-        actionString = new SimpleStringProperty();
-        leftString = new SimpleStringProperty();
-        rightString = new SimpleStringProperty();
-        directionString = new SimpleStringProperty();;
+        actionString = new String();
+        leftString = new String();
+        rightString = new String();
+        directionString = new String();;
         
     }
     
@@ -60,6 +59,7 @@ public class Operation
         }
     }
     */
+    
     /**execute the operation
     *@return false if it failed
     */
@@ -254,10 +254,10 @@ public class Operation
     */
     private Path right;
     
-    private final SimpleStringProperty actionString;
-    private final SimpleStringProperty leftString;
-    private final SimpleStringProperty rightString;
-    private final SimpleStringProperty directionString;
+    private final String actionString;
+    private final String leftString;
+    private final String rightString;
+    private final String directionString;
     
     
     /**the set of actions
