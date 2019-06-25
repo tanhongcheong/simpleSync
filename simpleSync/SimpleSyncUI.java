@@ -5,13 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
-import myPackages.ui.*;
-import myPackages.table.*;
 import java.nio.file.*;
 import java.nio.file.attribute.FileTime;
 import java.net.*;
+import javax.swing.table.*;
 
-public class SimpleSyncUI extends MyJFrame
+public class SimpleSyncUI extends JFrame
 {
     private static final long serialVersionUID = 9002554424450280236L;
     
@@ -37,7 +36,7 @@ public class SimpleSyncUI extends MyJFrame
     
     /**the table
     */
-    private MyTable table;
+    private JTable table;
     
     /**the file system
     */
@@ -63,6 +62,26 @@ public class SimpleSyncUI extends MyJFrame
     private void init()
     {
         setTitle("Simple Sync");
+        
+        
+        //set the default size to 800 by 600
+        //so that when the user press restore, it is not minimized
+        this.setSize(800,600);
+        this.setResizable(true);
+        
+        this.addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent e)
+            {
+                System.exit(0);
+            }
+        });
+        //maximize the frame
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //show the frames
+        this.setVisible(true);
+        
+        
         Container pane = this.getContentPane();
         pane.setLayout(new BorderLayout());
 
@@ -78,15 +97,9 @@ public class SimpleSyncUI extends MyJFrame
         Class<?>[] types = {String.class,String.class,String.class,String.class,};
         Comparable<?>[][] data = new Comparable<?>[0][4];
         
-        try
-        {
-            tableModel = new MyTableModel(headers,types,data);
-        }
-        catch(InvalidDataTypeException e)
-        {
-            e.printStackTrace();
-        }
-        table = new MyTable(tableModel);
+        tableModel = new MyTableModel(headers,types,data);
+        
+        table = new JTable(tableModel);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         pane.add(new JScrollPane(table),BorderLayout.CENTER);
     }
@@ -106,16 +119,9 @@ public class SimpleSyncUI extends MyJFrame
             data[i][2] = operation.getDirectionString();
             data[i][3] = operation.getRightString();
         }
-        try
-        {
-            tableModel.clear();
-            tableModel.setData(data);
-            table.autoFitColumns();
-        }
-        catch(InvalidDataTypeException e)
-        {
-            e.printStackTrace();
-        }
+        tableModel.clear();
+        tableModel.setData(data);
+        table.setRowSorter(new TableRowSorter<TableModel>(tableModel));
         if (operations.size()>0)
         {
             executeMenu.setEnabled(true);

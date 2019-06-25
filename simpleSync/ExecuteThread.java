@@ -5,29 +5,15 @@ import javax.swing.*;
 import java.nio.file.*;
 import java.io.*;
 import java.nio.file.attribute.FileTime;
-import org.apache.commons.io.*;
 import java.net.*;
 
 public class ExecuteThread extends Thread
 {
-    /**the list of operations
-    */
-    //private ArrayList<Operation> operations;
-    
-    /**the file system
-    */
-    //private FileSystem fs;
-    
     private SimpleSyncUI ui;
-    
     
     public ExecuteThread(SimpleSyncUI ui)
     {
         this.ui = ui;
-        //this.fs = ui.getFileSystem();
-        //this.leftDir = ui.getLeftDir();
-        //this.rightDir = ui.getRightDir();
-        //System.out.println("Left dir ="+leftDir.toString());
     }
     
     @Override
